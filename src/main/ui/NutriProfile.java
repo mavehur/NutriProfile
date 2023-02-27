@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 // NutriProfile application
 public class NutriProfile {
-    private static Ingredient singleIngredient;
+
     private static IngredientDatabase ingredDb;
     private static List<Ingredient> ingredientList;
     private static Scanner input;
@@ -48,7 +48,7 @@ public class NutriProfile {
 
     // EFFECTS: displays main menu of options
     public static void displayMainMenu() {
-        System.out.println("\t\t==========Welcome To NutriProfile==========");
+        System.out.println("\t\t========= Welcome To NutriProfile =========");
         System.out.println("\t\t                                           ");
         System.out.println("\t\t          1. Search an ingredient          ");
         System.out.println("\t\t          2. View a list of ingredients    ");
@@ -93,12 +93,10 @@ public class NutriProfile {
 
             for (Ingredient ingredient : ingredientList) {
                 if (ingredient.getName().equalsIgnoreCase(chosenName)) {
-                    // Name exists, so return its corresponding values
+
                     System.out.println("Category: " + ingredient.getCategory()
                             + ", Ingredient Name: " + ingredient.getName()
                             + ", Reason: " + ingredient.getReason());
-//                    isIngredientFound = true;
-
                 } else {
                     System.out.println("It doesn't exist. Please add it.");
 
@@ -115,11 +113,9 @@ public class NutriProfile {
             System.out.println("You chose to view a list");
             int ingredIndex = 0;
 
-            // Ask user to choose a category
             System.out.print("Enter a category (GOOD or BAD): ");
             String chosenCategory = input.nextLine();
 
-            // Output the list of items under the chosen category
             System.out.println("Ingredients under category: " + chosenCategory);
             List<Ingredient> ingredientList = ingredDb.getIngredientDb();
             for (Ingredient ingredient : ingredientList) {
