@@ -6,6 +6,7 @@ import model.IngredientDatabase;
 import java.util.List;
 import java.util.Scanner;
 
+// NutriProfile application
 public class NutriProfile {
     private static Ingredient singleIngredient;
     private static IngredientDatabase ingredDb;
@@ -13,6 +14,7 @@ public class NutriProfile {
     private static Scanner input;
     private static int choose;
 
+    // EFFECTS: runs NutriProfile application
     public NutriProfile() {
 
         ingredDb = new IngredientDatabase();
@@ -23,14 +25,15 @@ public class NutriProfile {
         runNutriProfile();
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes input from user
     private void runNutriProfile() {
-        int choose;
         boolean isAppRunning = true;
 
         while (isAppRunning) {
             displayMainMenu();
             choose = input.nextInt();
-
+            input.nextLine();
 
             if (choose == 0) {
                 isAppRunning = false;
@@ -60,6 +63,8 @@ public class NutriProfile {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes choice user makes
     public static void chooseMainOption(int choose) {
 
         if (choose == 1) {
@@ -76,12 +81,9 @@ public class NutriProfile {
 
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: conducts searching ingredient user looks for and returns it
     public static void searchIngredient() {
-//        String category = ingredient.getCategory();
-//        String name = ingredient.getName();
-//        String reason = ingredient.getReason();
-//        boolean isIngredientFound = true; // check if ingredient exists
 
         if (ingredDb.isIngredientDbEmpty()) {
             System.out.println("Your list is empty. Please add it.");
@@ -93,7 +95,7 @@ public class NutriProfile {
                 if (ingredient.getName().equalsIgnoreCase(chosenName)) {
                     // Name exists, so return its corresponding values
                     System.out.println("Category: " + ingredient.getCategory()
-                            + "Ingredient Name: " + ingredient.getName()
+                            + ", Ingredient Name: " + ingredient.getName()
                             + ", Reason: " + ingredient.getReason());
 //                    isIngredientFound = true;
 
@@ -105,23 +107,7 @@ public class NutriProfile {
         }
     }
 
-
-
-
-//        if (singleIngredient.doesIngredientExist()) {
-//            System.out.println("It doesn't exist.");
-//        } else {
-//            System.out.println("found!");
-//
-//        }
-//        System.out.println("Category: " + category);
-//        System.out.println("Ingredient Name: " + name);
-//        System.out.println("Reason: " + reason);
-
-    // Check if the name exists in the inputList
-
-
-
+    // EFFECTS: conducts viewing list of ingredients stored
     public static void viewIngredientsList() {
         if (ingredDb.isIngredientDbEmpty()) {
             System.out.println("Your list is empty. Please add ingredient.");
@@ -138,9 +124,9 @@ public class NutriProfile {
             List<Ingredient> ingredientList = ingredDb.getIngredientDb();
             for (Ingredient ingredient : ingredientList) {
                 if (ingredient.getCategory().equalsIgnoreCase(chosenCategory)) {
+                    System.out.println("#" + ingredIndex + "\tName: " + ingredient.getName()
+                            + "\tReason: " + ingredient.getReason());
                     ingredIndex++;
-                    System.out.println("#" + ingredIndex + "\tName" + "\tReason");
-                    System.out.println(ingredient.getName() + "\t\t" + ingredient.getReason());
                 }
             }
 
@@ -148,62 +134,39 @@ public class NutriProfile {
 
     }
 
-//        System.out.println("You chose to view a list");
-//        System.out.println("\t\t==============================");
-//        System.out.println("\t\t                              ");
-//        System.out.println("\t\t           Category           ");
-//        System.out.println("\t\t           1. GOOD            ");
-//        System.out.println("\t\t           2. BAD             ");
-//        System.out.println("\t\t                              ");
-//        System.out.println("\t\t==============================");
-//        System.out.println("Enter the number of a category");
-//        choose = input.nextInt();
-//        //리스트 불러오는거 추가!!!
-//
-//    }
-
-    public static void chooseSubOption() {
-        System.out.println("\t\t==============================");
-        System.out.println("\t\t                              ");
-        System.out.println("\t\t      1. Return to main       ");
-        System.out.println("\t\t      0. Exit                 ");
-        System.out.println("\t\t                              ");
-        System.out.println("\t\t==============================");
-        System.out.println("Enter the number of an option: ");
-        choose = input.nextInt();
-
-        if (choose == 1) {
-            displayMainMenu();
-        } else if (choose == 0) {
-            System.out.println("See you next time!");
-            System.exit(0); // exit the application
-        } else {
-            System.out.println("Invalid choice. Please try again.");
-        }
-    }
-
+    // MODIFIES: this
+    // EFFECTS: adds ingredient to database
     public static void addIngredients() {
         System.out.println("You chose to add an ingredient");
 
-        System.out.println("Enter category name (GOOD or BAD): ");
-        input.nextLine();
-        String category = input.nextLine();
+        while (true) {
+            System.out.println("Enter category name (GOOD or BAD): ");
+            String category = input.nextLine();
 
-        System.out.println("Enter ingredient name: ");
-        String name = input.nextLine();
+            System.out.println("Enter ingredient name: ");
+            String name = input.nextLine();
 
-        System.out.println("Enter reason (e.g. allergy causing): ");
-        String reason = input.nextLine();
+            System.out.println("Enter reason (e.g. allergy causing): ");
+            String reason = input.nextLine();
 
-        Ingredient ingredient = new Ingredient(category, name, reason);
-
-        ingredDb.addToDb(ingredient); //!!!
-        System.out.println(ingredient.getName() + " is successfully added!");
-
-
+            if (category == null || name == null || reason == null
+                    || category.isEmpty() || name.isEmpty() || reason.isEmpty()) {
+                System.out.println("Please fill in all fields.");
+            } else {
+                Ingredient ingredient = new Ingredient(category, name, reason);
+                boolean check = ingredDb.addToDb(ingredient);
+                if (check) {
+                    System.out.println(ingredient.getName() + " is successfully added!");
+                    break;
+                } else {
+                    System.out.println(ingredient.getName() + " is already in the list. Please add a different one");
+                }
+            }
+        }
     }
 
-
+    // REQUIRES: index >= 0
+    // EFFECTS: displays ingredients from database with corresponding index
     public static Ingredient chooseIngredient(List<Ingredient> ingredientCollection) {
         for (Ingredient ingredient: ingredientCollection) {
             System.out.println("For " + ingredient.getName() + " press " + ingredientCollection.indexOf(ingredient));
@@ -212,6 +175,8 @@ public class NutriProfile {
         return ingredientCollection.get(index);
     }
 
+    // MODIFIES: this
+    // EFFECTS: delete ingredient from database by choosing its index
     public static void deleteIngredients() {
         System.out.println("Enter ingredient number to delete");
         Ingredient ingredient = chooseIngredient(ingredientList);
