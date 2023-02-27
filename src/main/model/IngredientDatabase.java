@@ -9,7 +9,6 @@ public class IngredientDatabase {
 
     private final List<Ingredient> ingredientDb;
 
-
     //EFFECTS: creates database for ingredients stored and retrieved
     public IngredientDatabase() {
         this.ingredientDb = new ArrayList<>();
@@ -27,8 +26,6 @@ public class IngredientDatabase {
         ingredientDb.add(ingredient);
         return true;
     }
-
-
 
     // EFFECTS: returns true if database is empty, otherwise false.
     public Boolean isIngredientDbEmpty() {

@@ -23,6 +23,7 @@ public class IngredientDatabaseTest {
     }
 
     @Test
+    // test for getter and setter
     void changeValue() {
         ingredient2.setCategory("GOOD");
         ingredient2.setName("Orange");
@@ -33,7 +34,7 @@ public class IngredientDatabaseTest {
     }
 
     @Test
-    // test for AddtoDb
+    // test for AddtoDb by adding one ingredient
     void testAddOneIngredientsToDb() {
         assertTrue(database.addToDb(ingredient1));
         assertFalse(database.addToDb(ingredient1));
@@ -65,12 +66,11 @@ public class IngredientDatabaseTest {
         assertTrue(ingredients.isEmpty());
         database.addToDb(ingredient1);
         database.addToDb(ingredient2);
-        database.addToDb(ingredient3);
         ingredients = database.getIngredientDb();
-        assertEquals(3, ingredients.size());
+        assertEquals(ingredients.size(), 2);
         assertTrue(ingredients.contains(ingredient1));
         assertTrue(ingredients.contains(ingredient2));
-        assertTrue(ingredients.contains(ingredient3));
+        assertFalse(ingredients.contains(ingredient3));
     }
 
     @Test

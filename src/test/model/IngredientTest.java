@@ -19,6 +19,7 @@ public class IngredientTest {
     }
 
     @Test
+    // test for getter and setter
     void changeValue() {
         ingredient1.setCategory("GOOD");
         ingredient1.setName("Cranberry");
