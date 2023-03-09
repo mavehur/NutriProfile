@@ -19,6 +19,7 @@ public class JsonReader {
         this.code = code;
     }
 
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // EFFECTS: reads IngredientDatabase from file and returns it, and
     //          throws IOException when error occurs while reading data from file
     public IngredientDatabase read() throws IOException {
@@ -27,6 +28,7 @@ public class JsonReader {
         return parseIngredientDatabase(jsonObject);
     }
 
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // EFFECTS: reads code file as string and returns it
     private String readFile(String code) throws IOException {
         StringBuilder dataCreator = new StringBuilder();
@@ -37,6 +39,7 @@ public class JsonReader {
         return dataCreator.toString();
     }
 
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // EFFECTS: parses IngredientDatabase from JSON object and returns it
     private IngredientDatabase parseIngredientDatabase(JSONObject jsonObject) {
         IngredientDatabase id = new IngredientDatabase();
@@ -44,6 +47,7 @@ public class JsonReader {
         return id;
     }
 
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // MODIFIES: id
     // EFFECTS: parses ingredient from JSON object and adds it to IngredientDatabase
     private void addIngredient(IngredientDatabase id, JSONObject jsonObject) {
@@ -54,6 +58,7 @@ public class JsonReader {
         id.addToDb(ingredient);
     }
 
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // MODIFIES: id
     // EFFECTS: parses ingredients from JSON object and adds them to IngredientDatabase
     private void addIngredients(IngredientDatabase id, JSONObject jsonObject) {
