@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class NutriProfile {
 
     private static IngredientDatabase ingredDb;
-//    private static List<Ingredient> ingredientList;
     private static Scanner input;
     private static final String JSONFileNameToStore = "./data/IngredientDatabase.json";
 
@@ -26,7 +25,6 @@ public class NutriProfile {
     public NutriProfile() throws FileNotFoundException {
         ingredDb = new IngredientDatabase();
         input = new Scanner(System.in);
-//        ingredientList = ingredDb.getIngredientDb(); //??? 이거 킵?
         jsonWriter = new JsonWriter(JSONFileNameToStore);
         jsonReader = new JsonReader(JSONFileNameToStore);
 

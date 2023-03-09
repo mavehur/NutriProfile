@@ -45,5 +45,19 @@ public class IngredientTest {
 
     }
 
+//    // EFFECTS: returns each element in ingredient as string
+//    public String toString() {
+//        return "category: " + category + ", name: " + name + ", reason: " + reason;
+//    }
+
+
+    @Test
+    void testToString() {
+        String expectedValue1 = "category: GOOD, name: Cranberry, reason: Kidney Infection";
+        String expectedValue2 = "category: GOOD, name: Orange, reason: Vitamin C";
+
+        assertEquals(ingredient1.toString(), expectedValue1);
+        assertEquals(ingredient2.toString(), expectedValue2);
+    }
 
 }

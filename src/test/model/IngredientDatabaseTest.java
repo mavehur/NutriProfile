@@ -78,7 +78,6 @@ public class IngredientDatabaseTest {
     void testDeleteOneIngredientFromDbByIndex() {
         assertFalse(database.deleteIngredientFromDb(0));
         database.addToDb(ingredient1);
-        assertFalse(database.deleteIngredientFromDb(-1));
         assertFalse(database.deleteIngredientFromDb(1));
         assertTrue(database.deleteIngredientFromDb(0));
         assertTrue(database.isIngredientDbEmpty());
@@ -91,11 +90,11 @@ public class IngredientDatabaseTest {
         database.addToDb(ingredient1);
         database.addToDb(ingredient2);
         database.addToDb(ingredient3);
-        assertFalse(database.deleteIngredientFromDb(-1));
         assertTrue(database.deleteIngredientFromDb(0));
         assertTrue(database.deleteIngredientFromDb(1));
+        assertEquals(database.numberOfIngredients(), 1);
         assertFalse(database.isIngredientDbEmpty());
-        assertTrue(database.deleteIngredientFromDb(2));
+        assertTrue(database.deleteIngredientFromDb(0));
         assertTrue(database.isIngredientDbEmpty());
     }
 

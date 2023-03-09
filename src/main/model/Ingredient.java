@@ -9,6 +9,8 @@ public class Ingredient implements Writable {
     private String name;
     private String reason;
 
+    // REQUIRES: length of category, name, reason > 0
+    // EEFECTS: Constructs ingredient whose element is category, name and reason as string
     public Ingredient(String category, String name, String reason) {
 
         this.category = category;
@@ -42,7 +44,7 @@ public class Ingredient implements Writable {
 
     // EFFECTS: returns each element in ingredient as string
     public String toString() {
-        return "category: " + category + "name: " + name + "reason: " + reason;
+        return "category: " + category + ", name: " + name + ", reason: " + reason;
     }
 
     @Override
