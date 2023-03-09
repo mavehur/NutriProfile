@@ -15,6 +15,7 @@ import java.util.List;
 public class JsonReaderTest extends JsonTest {
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to read a file that doesn't exist
     void testReaderFileNotExist() {
         JsonReader reader = new JsonReader("./data/File1.json");
@@ -29,6 +30,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to read a file that exists but is empty
     void testReaderEmptyIngredientDatabase() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyIngredientDatabase.json");
@@ -44,6 +46,7 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to read a file with ingredients stored
     void testReaderNonEmptyIngredientDatabase() {
         JsonReader reader = new JsonReader("./data/testReaderNonEmptyIngredientDatabase.json");

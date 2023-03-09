@@ -22,7 +22,7 @@ public class NutriProfile {
     private JsonReader jsonReader;
 
     // EFFECTS: runs NutriProfile application
-    public NutriProfile() throws FileNotFoundException {
+    public NutriProfile() {
         ingredDb = new IngredientDatabase();
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSONFileNameToStore);
@@ -39,17 +39,21 @@ public class NutriProfile {
 
         while (isAppRunning) {
             displayMainMenu();
-            choose = input.nextInt();
-            input.nextLine();
+            String userInput = input.nextLine();
+            while (!checkUserInput(userInput)) {
+                System.out.println("Invalid choice!");
+                userInput = input.nextLine();
+            }
+            choose = Integer.parseInt(userInput);
 
             if (choose == 0) {
                 isAppRunning = false;
+                System.out.println("See you next time!");
+                System.exit(0); // exit the application
             } else {
                 chooseMainOption(choose);
             }
         }
-        System.out.println("See you next time!");
-        System.exit(0); // exit the application
 
     }
 
@@ -72,8 +76,20 @@ public class NutriProfile {
 
     }
 
+    // EFFECTS: checks if 0 <= user input <= 6, otherwise false.
+    public boolean checkUserInput(String userInput) {
+        try {
+            Integer.parseInt(userInput);
+        } catch (NumberFormatException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
+        return Integer.parseInt(userInput) <= 6 && Integer.parseInt(userInput) >= 0;
+    }
+
     // MODIFIES: this
-    // EFFECTS: processes choice user makes
+    // EFFECTS: processes a choice user makes
     public void chooseMainOption(int choose) {
 
         if (choose == 1) {
@@ -94,9 +110,11 @@ public class NutriProfile {
 
     }
 
+
     // MODIFIES: this
     // EFFECTS: conducts searching ingredient user looks for and returns it
     public static void searchIngredient() {
+        boolean check = false;
 
         if (ingredDb.isIngredientDbEmpty()) {
             System.out.println("Your list is empty. Please add a new ingredient.");
@@ -106,15 +124,16 @@ public class NutriProfile {
             List<Ingredient> ingredientList = ingredDb.getIngredientDb();
             for (Ingredient ingredient : ingredientList) {
                 if (ingredient.getName().equalsIgnoreCase(chosenName)) {
-
+                    check = true;
                     System.out.println("Category: " + ingredient.getCategory()
                             + ", Name: " + ingredient.getName()
                             + ", Reason: " + ingredient.getReason());
-                } else {
-                    System.out.println("It doesn't exist. Please add it.");
-
                 }
             }
+            if (!check) {
+                System.out.println("It doesn't exist. Please add it.");
+            }
+
         }
     }
 
@@ -181,16 +200,22 @@ public class NutriProfile {
             System.out.println("For " + ingredient.getName() + " press " + ingredientCollection.indexOf(ingredient));
         }
         int index = input.nextInt();
+        input.nextLine();
+
         return ingredientCollection.get(index);
     }
 
     // MODIFIES: this
     // EFFECTS: delete ingredient from database by choosing its index
     public static void deleteIngredients() {
-        System.out.print("Enter ingredient number to delete");
-        Ingredient ingredient = chooseIngredient(ingredDb.getIngredientDb());
-        ingredDb.deleteIngredientFromDb(ingredient);
-        System.out.println(ingredient.getName() + " is successfully deleted!");
+        if (ingredDb.isIngredientDbEmpty()) {
+            System.out.println("There's no ingredient to delete.");
+        } else {
+            System.out.print("Enter ingredient number to delete");
+            Ingredient ingredient = chooseIngredient(ingredDb.getIngredientDb());
+            ingredDb.deleteIngredientFromDb(ingredient);
+            System.out.println(ingredient.getName() + " is successfully deleted!");
+        }
     }
 
     // EFFECT: saves IngredientDatabase to file

@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class JsonWriterTest extends JsonTest {
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to write a file that doesn't exist
     void testWriterFileNotExist() {
         try {
@@ -33,6 +34,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to write a file that exists and is empty
     void testReaderEmptyIngredientDatabase() {
         try {
@@ -54,6 +56,7 @@ public class JsonWriterTest extends JsonTest {
     }
 
     @Test
+    // This method is modeled based on UBC CPSC 210 WorkRoom APP
     // test to write a file
     void testWriterNonEmptyIngredientDatabase() {
         try {
