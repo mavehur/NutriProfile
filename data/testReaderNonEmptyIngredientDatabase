@@ -1,0 +1,16 @@
+{"ingredients": [{
+   "reason": "life saver",
+   "name": "coffee",
+   "category": "good"
+},
+{
+   "reason": "vitamin c booster",
+   "name": "orange",
+   "category": "good"
+},
+{
+   "reason": "too much sugar",
+   "name": "coke",
+   "category": "bad"
+}
+]}

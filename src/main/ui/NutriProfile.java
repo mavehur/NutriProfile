@@ -3,6 +3,11 @@ package ui;
 import model.Ingredient;
 import model.IngredientDatabase;
 
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,17 +15,20 @@ import java.util.Scanner;
 public class NutriProfile {
 
     private static IngredientDatabase ingredDb;
-    private static List<Ingredient> ingredientList;
+//    private static List<Ingredient> ingredientList;
     private static Scanner input;
-    private static int choose;
+    private static final String JSONFileNameToStore = "./data/IngredientDatabase.json";
+
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs NutriProfile application
-    public NutriProfile() {
-
+    public NutriProfile() throws FileNotFoundException {
         ingredDb = new IngredientDatabase();
-        ingredientList = ingredDb.getIngredientDb();
-
         input = new Scanner(System.in);
+//        ingredientList = ingredDb.getIngredientDb(); //??? 이거 킵?
+        jsonWriter = new JsonWriter(JSONFileNameToStore);
+        jsonReader = new JsonReader(JSONFileNameToStore);
 
         runNutriProfile();
     }
@@ -28,6 +36,7 @@ public class NutriProfile {
     // MODIFIES: this
     // EFFECTS: processes input from user
     private void runNutriProfile() {
+        int choose;
         boolean isAppRunning = true;
 
         while (isAppRunning) {
@@ -54,18 +63,20 @@ public class NutriProfile {
         System.out.println("\t\t          2. View a list of ingredients    ");
         System.out.println("\t\t          3. Add ingredients               ");
         System.out.println("\t\t          4. Delete ingredients            ");
+        System.out.println("\t\t          5. Save your list to file        ");
+        System.out.println("\t\t          6. Load your list from file      ");
         System.out.println("\t\t          0. Exit                          ");
         System.out.println("\t\t                                           ");
         System.out.println("\t\t===========================================");
 
-        System.out.println("Enter the number of an option: ");
+        System.out.print("Enter the number of an option: ");
 
 
     }
 
     // MODIFIES: this
     // EFFECTS: processes choice user makes
-    public static void chooseMainOption(int choose) {
+    public void chooseMainOption(int choose) {
 
         if (choose == 1) {
             searchIngredient();
@@ -75,6 +86,10 @@ public class NutriProfile {
             addIngredients();
         } else if (choose == 4) {
             deleteIngredients();
+        } else if (choose == 5) {
+            saveIngredientDatabase();
+        } else if (choose == 6) {
+            loadIngredientDatabase();
         } else {
             System.out.println("Invalid choice. Please try again.");
         }
@@ -86,16 +101,16 @@ public class NutriProfile {
     public static void searchIngredient() {
 
         if (ingredDb.isIngredientDbEmpty()) {
-            System.out.println("Your list is empty. Please add it.");
+            System.out.println("Your list is empty. Please add a new ingredient.");
         } else {
             System.out.println("Which ingredient are you looking for?: ");
             String chosenName = input.nextLine();
-
+            List<Ingredient> ingredientList = ingredDb.getIngredientDb();
             for (Ingredient ingredient : ingredientList) {
                 if (ingredient.getName().equalsIgnoreCase(chosenName)) {
 
                     System.out.println("Category: " + ingredient.getCategory()
-                            + ", Ingredient Name: " + ingredient.getName()
+                            + ", Name: " + ingredient.getName()
                             + ", Reason: " + ingredient.getReason());
                 } else {
                     System.out.println("It doesn't exist. Please add it.");
@@ -108,7 +123,7 @@ public class NutriProfile {
     // EFFECTS: conducts viewing list of ingredients stored
     public static void viewIngredientsList() {
         if (ingredDb.isIngredientDbEmpty()) {
-            System.out.println("Your list is empty. Please add ingredient.");
+            System.out.println("Your list is empty. Please add a new ingredient.");
         } else {
             System.out.println("You chose to view a list");
             int ingredIndex = 0;
@@ -133,21 +148,21 @@ public class NutriProfile {
     // MODIFIES: this
     // EFFECTS: adds ingredient to database
     public static void addIngredients() {
-        System.out.println("You chose to add an ingredient");
+        System.out.println("You chose to add an ingredient.");
 
         while (true) {
-            System.out.println("Enter category name (GOOD or BAD): ");
+            System.out.print("Enter category name (GOOD or BAD): ");
             String category = input.nextLine();
 
-            System.out.println("Enter ingredient name: ");
+            System.out.print("Enter ingredient name: ");
             String name = input.nextLine();
 
-            System.out.println("Enter reason (e.g. allergy causing): ");
+            System.out.print("Enter reason (e.g. allergy causing): ");
             String reason = input.nextLine();
 
             if (category == null || name == null || reason == null
                     || category.isEmpty() || name.isEmpty() || reason.isEmpty()) {
-                System.out.println("Please fill in all fields.");
+                System.out.println("Please fill in all fields. ");
             } else {
                 Ingredient ingredient = new Ingredient(category, name, reason);
                 boolean check = ingredDb.addToDb(ingredient);
@@ -155,7 +170,7 @@ public class NutriProfile {
                     System.out.println(ingredient.getName() + " is successfully added!");
                     break;
                 } else {
-                    System.out.println(ingredient.getName() + " is already in the list. Please add a different one");
+                    System.out.println(ingredient.getName() + " is already in the list. Please add a different one.");
                 }
             }
         }
@@ -174,10 +189,36 @@ public class NutriProfile {
     // MODIFIES: this
     // EFFECTS: delete ingredient from database by choosing its index
     public static void deleteIngredients() {
-        System.out.println("Enter ingredient number to delete");
-        Ingredient ingredient = chooseIngredient(ingredientList);
+        System.out.print("Enter ingredient number to delete");
+        Ingredient ingredient = chooseIngredient(ingredDb.getIngredientDb());
         ingredDb.deleteIngredientFromDb(ingredient);
-        System.out.print(ingredient.getName() + " is successfully deleted!");
+        System.out.println(ingredient.getName() + " is successfully deleted!");
+    }
+
+    // EFFECT: saves IngredientDatabase to file
+    private void saveIngredientDatabase() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(ingredDb);
+            jsonWriter.close();
+
+            System.out.println("Successfully saved!");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("FileNotFoundException occurred!");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads IngredientDatabase from file
+    private void loadIngredientDatabase() {
+        try {
+            ingredDb = jsonReader.read();
+            System.out.println("Successfully loaded!");
+
+        } catch (IOException e) {
+            System.out.println("IOException occurred!");
+        }
     }
 
 }

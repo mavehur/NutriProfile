@@ -34,7 +34,7 @@ public class IngredientDatabaseTest {
     }
 
     @Test
-    // test for AddtoDb by adding one ingredient
+    // test for AddToDb by adding one ingredient
     void testAddOneIngredientsToDb() {
         assertTrue(database.addToDb(ingredient1));
         assertFalse(database.addToDb(ingredient1));

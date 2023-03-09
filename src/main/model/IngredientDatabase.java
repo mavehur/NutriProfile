@@ -1,13 +1,16 @@
 package model;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 // Represents a collection of ingredients
-public class IngredientDatabase {
-
-    private final List<Ingredient> ingredientDb;
+public class IngredientDatabase implements Writable {
+    private List<Ingredient> ingredientDb;
 
     //EFFECTS: creates database for ingredients stored and retrieved
     public IngredientDatabase() {
@@ -60,5 +63,26 @@ public class IngredientDatabase {
     }
 
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonOb = new JSONObject();
+        jsonOb.put("ingredients", ingredientsToJson());
+        return jsonOb;
+    }
+
+    // EFFECTS: returns ingredients in ingredientDatabase as JSON array
+    private JSONArray ingredientsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Ingredient id : ingredientDb) {
+            jsonArray.put(id.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: returns the number of ingredients in IngredientDatabase
+    public int numberOfIngredients() {
+        return ingredientDb.size();
+    }
 }
 

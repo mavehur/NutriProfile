@@ -1,0 +1,16 @@
+{"ingredients": [{
+  "reason": "kidney",
+  "name": "cranberry",
+  "category": "good"
+},
+  {
+    "reason": "too much sugar",
+    "name": "energy drink",
+    "category": "bad"
+  },
+  {
+    "reason": "too much sugar",
+    "name": "candy",
+    "category": "bad"
+  }
+]}

@@ -36,3 +36,5 @@ to organize and classify them.
 - As a user, I want to be able to select a category and view the list of ingredients with their corresponding reasons in it.
 - As a user, I want to be able to search an ingredient and view its category, name and reason.
 - As a user, I want to be able to remove an ingredient from category.
+- As a user, I want to be able to save my ingredients list to file if I choose to.
+- As a user, I want to be able to load my ingredients list from file if I choose to.
