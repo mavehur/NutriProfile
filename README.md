@@ -46,7 +46,33 @@ to organize and classify them.
 - You can locate my visual components after saving and loading a file by clicking "Save My List" and "Load My List."
 - You can save the state of my application by clicking "Save My List."
 - You can reload the state of my application by clicking "Load My List."
+- You can clear the whole list of ingredients by clicking "Delete My List."
 - You can quit the program by clicking "quit."
 
 ### Phase 4: Task 2
--
+Samples of printed events when quitting the Application:
+
+- When adding an ingredient to the IngredientDatabase:                                 
+  Wed Apr 12 16:50:08 PDT 2023
+  Ingredient has been added to the database
+  Category: Good
+  Name: Coffee
+  Reason: Energy Booster!
+
+- When adding two ingredients to the IngredientDatabase and then clearing the whole database:
+  Wed Apr 12 16:50:35 PDT 2023
+  Ingredient has been added to the database
+  Category: Good
+  Name: Coffee
+  Reason: Energy Booster!
+  Wed Apr 12 16:51:05 PDT 2023
+  Ingredient has been added to the database
+  Category: Bad
+  Name: Candy
+  Reason: Too much sugar :(
+  Wed Apr 12 16:51:14 PDT 2023
+  All ingredients have been cleared from the database
+
+### Phase 4: Task 3
+Q. How can this app be improved by refactoring? 
+A. 
