@@ -73,7 +73,7 @@ public class IngredientDatabase implements Writable {
     public boolean clearDb() {
         ingredientDb.clear();
         EventLog.getInstance().logEvent(new Event("All ingredients have been cleared from the database"));
-        return false;
+        return true;
     }
 
     @Override

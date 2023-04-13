@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // NutriProfile application
-public class NutriProfile {
+public class NutriProfileAppConsoleBase {
 
     private static IngredientDatabase ingredDb;
     private static Scanner input;
@@ -22,7 +22,7 @@ public class NutriProfile {
     private JsonReader jsonReader;
 
     // EFFECTS: runs NutriProfile application
-    public NutriProfile() {
+    public NutriProfileAppConsoleBase() {
         ingredDb = new IngredientDatabase();
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSONFileNameToStore);

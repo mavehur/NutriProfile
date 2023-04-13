@@ -75,4 +75,8 @@ Samples of printed events when quitting the Application:
 
 ### Phase 4: Task 3
 Q. How can this app be improved by refactoring? 
-A. 
+- To improve code organization and maintenance, I would move the event listeners for each button into distinct classes 
+that implement the ActionListener interface. 
+- Instead of creating separate methods for each button panel, it would be more efficient to create one method that 
+receives an array of button labels and generates a JPanel with buttons that have the specified labels. Then this method 
+would be able to receive an ActionListener for each button as an argument. 
