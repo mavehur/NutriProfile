@@ -38,6 +38,7 @@ to organize and classify them.
 - As a user, I want to be able to remove an ingredient from category.
 - As a user, I want to be able to save my ingredients list to file if I choose to.
 - As a user, I want to be able to load my ingredients list from file if I choose to.
+- As a user, I want to be able to quit the program. 
 
 ### 💯️ Instructions for Grader
 - You can add ingredients to a list by clicking "Add Ingredient."
@@ -45,3 +46,7 @@ to organize and classify them.
 - You can locate my visual components after saving and loading a file by clicking "Save My List" and "Load My List."
 - You can save the state of my application by clicking "Save My List."
 - You can reload the state of my application by clicking "Load My List."
+- You can quit the program by clicking "quit."
+
+### Phase 4: Task 2
+-

@@ -27,6 +27,10 @@ public class IngredientDatabase implements Writable {
             }
         }
         ingredientDb.add(ingredient);
+        EventLog.getInstance().logEvent(new Event("Ingredient has been added to the database"
+                + "\nCategory: " + ingredient.getCategory()
+                + "\nName: " + ingredient.getName()
+                + "\nReason: " + ingredient.getReason()));
         return true;
     }
 
@@ -45,6 +49,7 @@ public class IngredientDatabase implements Writable {
     public Boolean deleteIngredientFromDb(int index) {
         if (!(index >= ingredientDb.size())) {
             this.ingredientDb.remove(index);
+            EventLog.getInstance().logEvent(new Event("Ingredient has been deleted from the database"));
             return true;
         } else {
             return false;
@@ -56,12 +61,20 @@ public class IngredientDatabase implements Writable {
     public boolean deleteIngredientFromDb(Ingredient ingredient) {
         if (ingredientDb.contains(ingredient)) {
             this.ingredientDb.remove(ingredient);
+            EventLog.getInstance().logEvent(new Event("Ingredient has been deleted from the database"));
             return true;
         } else {
             return false;
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes all ingredients from the database
+    public boolean clearDb() {
+        ingredientDb.clear();
+        EventLog.getInstance().logEvent(new Event("All ingredients have been cleared from the database"));
+        return false;
+    }
 
     @Override
     public JSONObject toJson() {

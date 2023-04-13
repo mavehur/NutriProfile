@@ -121,6 +121,18 @@ public class IngredientDatabaseTest {
         assertTrue(database.isIngredientDbEmpty());
     }
 
+    @Test
+    // test for ClearDb by clearing the whole list.
+    void testClearDb() {
+        database.addToDb(ingredient1);
+        database.addToDb(ingredient2);
+        database.addToDb(ingredient3);
+        assertFalse(database.isIngredientDbEmpty());
+        assertTrue(database.clearDb());
+        assertTrue(database.isIngredientDbEmpty());
+
+
+    }
 
 
 }

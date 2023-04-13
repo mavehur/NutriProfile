@@ -1,15 +1,20 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Ingredient;
 import model.IngredientDatabase;
+
 import persistence.JsonReader;
 import persistence.JsonWriter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 
 
 // Graphical Interface for NutriProfile application
@@ -21,17 +26,17 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-
     private JList<String> ingredientJList;
     private DefaultListModel<String> listModel;
-
 
     private JButton viewList;
     private JButton addIngredient;
     private JButton saveList;
     private JButton loadList;
+    private JButton deleteList;
+    private JButton quit;
 //    private JButton searchIngredient;
-//    private JButton deleteIngredients;
+
 
     private JTextField categoryField = new JTextField(15);
     private JTextField nameField = new JTextField(15);
@@ -42,6 +47,7 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
     private JLabel reasonLabel = new JLabel("Enter reason (e.g. allergy causing): ");
 
     private JWindow splashScreen;
+
 
     // EFFECTS: runs NutriProfile GUI application
     public NutriProfileAppGUI() {
@@ -61,7 +67,7 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
         nameLabel.setFont(font);
         reasonLabel.setFont(font);
 
-        setPreferredSize(new Dimension(600, 250));
+        setPreferredSize(new Dimension(700, 250));
         createIngredientDb();
         createInputLayout();
         createButtonLayout();
@@ -83,10 +89,12 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
         splashScreen.setLocationRelativeTo(null);
         splashScreen.setVisible(true);
 
+        // improve image rendering quality
         Graphics2D g = (Graphics2D)splashScreen.getRootPane().getGraphics();
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
+        // simulate loading time
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
@@ -121,24 +129,51 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
 
         loadList = new JButton("Load My List");
         loadList.addActionListener(new LoadListListener());
-//        searchIngredient = new JButton("Seach Ingredients");
-//        searchIngredient.addActionListener(new SearchIngredientLister());
-//        deleteIngredients = new JButton("Delete Ingredients");
-//        deleteIngredients.addActionListener(new DeleteIngredientListener());
 
+        deleteList = new JButton("Delete My List");
+        deleteList.addActionListener(new DeleteListListener());
+
+        quit = new JButton("Quit");
+        quit.addActionListener(new QuitListener());
+
+        JPanel buttonPane = createButtonPane();
+        JPanel button2Pane = createButton2Pane();
+
+        JPanel mainPane = new JPanel();
+        mainPane.setBackground(new Color(240, 248, 255));
+        mainPane.setLayout(new BoxLayout(mainPane, BoxLayout.Y_AXIS));
+        mainPane.add(Box.createVerticalGlue());
+        mainPane.add(buttonPane);
+        mainPane.add(Box.createVerticalGlue());
+        mainPane.add(button2Pane);
+        mainPane.add(Box.createVerticalGlue());
+
+        add(mainPane);
+    }
+
+    // EFFECTS: create and return a JPanel for add, view, save, load functions
+    private JPanel createButtonPane() {
         JPanel buttonPane = new JPanel();
         buttonPane.setBackground(new Color(240, 248, 255));
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.X_AXIS));
-
         buttonPane.add(addIngredient);
         buttonPane.add(viewList);
         buttonPane.add(saveList);
         buttonPane.add(loadList);
-//        buttonPane.add(searchIngredient);
-//        buttonPane.add(deleteIngredients);
         buttonPane.add(Box.createHorizontalGlue());
-        add(buttonPane);
+        return buttonPane;
     }
+
+    // EFFECTS: create and return a JPanel for delete and quit functions
+    private JPanel createButton2Pane() {
+        JPanel button2Pane = new JPanel();
+        button2Pane.setBackground(new Color(240, 248, 255));
+        button2Pane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        button2Pane.add(deleteList);
+        button2Pane.add(quit);
+        return button2Pane;
+    }
+
 
     // This method is modeled based on https://www.youtube.com/watch?v=Kmgo00avvEw
     // EFFECTS: creates layout for user's input for ingredient
@@ -204,7 +239,6 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
         }
     }
 
-
     // action listener for viewing list
     class ViewListListener implements ActionListener {
 
@@ -265,6 +299,37 @@ public class NutriProfileAppGUI extends JFrame implements ActionListener {
             }
         }
     }
+
+    // action listener for deleting the whole list
+    // MODIFIES: this
+    // EFFECTS: clear the whole list
+    private class DeleteListListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            ingredientDb.clearDb();
+            listModel.clear();
+            ingredientJList.setModel(listModel);
+        }
+    }
+
+    // action listener for quitting program
+    // EFFECTS: print the logged events and quit the program
+    private class QuitListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getEventDescription(EventLog.getInstance());
+            System.exit(0);
+        }
+    }
+
+    // EFFECTS: get description and date of logged events
+    private String getEventDescription(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString());
+        }
+        return null;
+    }
+
 
 }
 
