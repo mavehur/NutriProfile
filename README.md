@@ -2,7 +2,7 @@
 
 ### 🚀UBC 22-23W2 CPSC 210 Personal Project
 
-No matter how healthy some ingredients are known to be, if they don't fit your constitution, should it be still 
+No matter how healthy some ingredients are known to be, if they don't fit your constitution, would they be still 
 considered healthy? The ideal diet varies depending on an individual's specific needs, goals, and dietary restrictions.
 
 **NutriProfile** is designed to help individuals achieve optimal health. NutriProfile is suitable for anyone looking to 
@@ -26,8 +26,8 @@ You can add ingredients in the category (GOOD or BAD) with a reason why they are
 ### 💡 How did NutriProfile start the journey?
 
 Grapefruit used to be one of my favorite fruits. However, I recently heard from my doctor that grapefruit is not 
-suitable for my constitution and can worsen my health!! For me, who have avoided foods only known to be unhealthy, 
-this made me feel the need to study more about myself and find optimized ingredients. So, I created this program 
+suitable for my constitution and can worsen my health! As a person who has avoided food only known to be unhealthy, 
+this experience made me feel the need to study more about myself and find optimized ingredients. So, I created this app 
 to organize and classify them.
 
 ### 📒 User Stories
