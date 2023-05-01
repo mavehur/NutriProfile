@@ -42,7 +42,7 @@ public class Ingredient implements Writable {
         this.reason = reason;
     }
 
-    // EFFECTS: returns each element in ingredient as string
+    // EFFECTS: returns each ingredient as string
     public String toString() {
         return "category: " + category + ", name: " + name + ", reason: " + reason;
     }

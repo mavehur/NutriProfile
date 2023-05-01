@@ -12,14 +12,15 @@ import java.util.List;
 public class IngredientDatabase implements Writable {
     private List<Ingredient> ingredientDb;
 
-    //EFFECTS: creates database for ingredients stored and retrieved
+
+     // EFFECTS: creates an array list of ingredients stored and retrieved
     public IngredientDatabase() {
         this.ingredientDb = new ArrayList<>();
 
     }
 
     // MODIFIES: this
-    // EFFECTS: if ingredient name doesn't exist in database, add it, otherwise false
+    // EFFECTS: if an ingredient name doesn't exist in the list, add it, otherwise false
     public Boolean addToDb(Ingredient ingredient) {
         for (Ingredient i : ingredientDb) {
             if (i.getName().equalsIgnoreCase(ingredient.getName())) {
@@ -34,18 +35,18 @@ public class IngredientDatabase implements Writable {
         return true;
     }
 
-    // EFFECTS: returns true if database is empty, otherwise false.
+    // EFFECTS: returns true if the list is empty, otherwise false.
     public Boolean isIngredientDbEmpty() {
         return ingredientDb.isEmpty();
     }
 
-    // EFFECTS: returns database
+    // EFFECTS: returns the list of ingredients
     public List<Ingredient> getIngredientDb() {
         return ingredientDb;
     }
 
     // MODIFIES: this
-    // EFFECTS:  removes ingredient from database if index is in range, otherwise false
+    // EFFECTS:  removes an ingredient from the list if index is in range, otherwise false
     public Boolean deleteIngredientFromDb(int index) {
         if (!(index >= ingredientDb.size())) {
             this.ingredientDb.remove(index);
@@ -57,7 +58,7 @@ public class IngredientDatabase implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: if ingredient exists in database, delete it, otherwise false
+    // EFFECTS: if an ingredient exists in the list, delete it, otherwise false
     public boolean deleteIngredientFromDb(Ingredient ingredient) {
         if (ingredientDb.contains(ingredient)) {
             this.ingredientDb.remove(ingredient);
@@ -69,7 +70,7 @@ public class IngredientDatabase implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes all ingredients from the database
+    // EFFECTS: removes all ingredients from the list
     public boolean clearDb() {
         ingredientDb.clear();
         EventLog.getInstance().logEvent(new Event("All ingredients have been cleared from the database"));
@@ -83,7 +84,7 @@ public class IngredientDatabase implements Writable {
         return jsonOb;
     }
 
-    // EFFECTS: returns ingredients in ingredientDatabase as JSON array
+    // EFFECTS: returns ingredients in the list as JSON array
     private JSONArray ingredientsToJson() {
         JSONArray jsonArray = new JSONArray();
 
@@ -93,7 +94,7 @@ public class IngredientDatabase implements Writable {
         return jsonArray;
     }
 
-    // EFFECTS: returns the number of ingredients in IngredientDatabase
+    // EFFECTS: returns the number of ingredients in the list
     public int numberOfIngredients() {
         return ingredientDb.size();
     }
