@@ -15,7 +15,7 @@ This can include people looking to:
 - Eat a more balanced and nutritious diet
 
 ⚠️ It is important to note that if you have any health concerns, it's always best to consult with a healthcare 
-professional first.
+professional first.  
 
 ### ✅︎ What functions does NutriProfile have?
 You can add ingredients in the category (GOOD or BAD) with a reason why they are good or bad for you, 
