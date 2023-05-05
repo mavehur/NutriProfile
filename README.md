@@ -1,7 +1,5 @@
 # NutriProfile
 
-### 🚀UBC 22-23W2 CPSC 210 Personal Project
-
 No matter how healthy some ingredients are known to be, if they don't fit your constitution, would they be still 
 considered healthy? The ideal diet varies depending on an individual's specific needs, goals, and dietary restrictions.
 
@@ -39,44 +37,3 @@ to organize and classify them.
 - As a user, I want to be able to save my ingredients list to file if I choose to.
 - As a user, I want to be able to load my ingredients list from file if I choose to.
 - As a user, I want to be able to quit the program. 
-
-### 💯️ Instructions for Grader
-- You can add ingredients to a list by clicking "Add Ingredient."
-- You can view a list of ingredients by clicking "View My List."
-- You can locate my visual components after saving and loading a file by clicking "Save My List" and "Load My List."
-- You can save the state of my application by clicking "Save My List."
-- You can reload the state of my application by clicking "Load My List."
-- You can clear the whole list of ingredients by clicking "Delete My List."
-- You can quit the program by clicking "quit."
-
-### Phase 4: Task 2
-Samples of printed events when quitting the Application:
-
-- When adding an ingredient to the IngredientDatabase:                                 
-  Wed Apr 12 16:50:08 PDT 2023
-  Ingredient has been added to the database
-  Category: Good
-  Name: Coffee
-  Reason: Energy Booster!
-
-- When adding two ingredients to the IngredientDatabase and then clearing the whole database:
-  Wed Apr 12 16:50:35 PDT 2023
-  Ingredient has been added to the database
-  Category: Good
-  Name: Coffee
-  Reason: Energy Booster!
-  Wed Apr 12 16:51:05 PDT 2023
-  Ingredient has been added to the database
-  Category: Bad
-  Name: Candy
-  Reason: Too much sugar :(
-  Wed Apr 12 16:51:14 PDT 2023
-  All ingredients have been cleared from the database
-
-### Phase 4: Task 3
-Q. How can this app be improved by refactoring? 
-- To improve code organization and maintenance, I would move the event listeners for each button into distinct classes 
-that implement the ActionListener interface. 
-- Instead of creating separate methods for each button panel, it would be more efficient to create one method that 
-receives an array of button labels and generates a JPanel with buttons that have the specified labels. Then this method 
-would be able to receive an ActionListener for each button as an argument. 
